@@ -6,6 +6,8 @@
       "CosmosDBConnection": "AccountEndpoint=https://xxx.documents.azure.com:443/;AccountKey=xxxxxxxxxx;",
       "CHAT_ENDPOINT": "https://xxxxxxxx.southeastasia.inference.ml.azure.com/score",
       "CHAT_KEY": "xxxxxxxx",
-      "CHAT_DEPLOYMENT": "xxxxxxxx"
+      "CHAT_DEPLOYMENT": "xxxxxxxx",
+      "COSMOS_DB_NAME": "xxxxxxxx",
+      "COSMOS_CONTAINER_NAME": "xxxxxxxx"
     }
   }

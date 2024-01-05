@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +6,6 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Microsoft.Azure.WebJobs.Extensions.CosmosDB;
 
 namespace Chatbot.Function
 {
@@ -17,14 +15,14 @@ namespace Chatbot.Function
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
             [CosmosDB(
-                databaseName: "AOAIDemo",
-                containerName: "chatHistory",
-            Connection ="CosmosDBConnection",
-        Id = "{Query.id}",
-            PartitionKey = "{Query.id}")] ChatHistory chatHistory,
+                databaseName: "%COSMOS_DB_NAME%",
+                containerName: "%COSMOS_CONTAINER_NAME%",
+                Connection ="CosmosDBConnection",
+                Id = "{Query.id}",
+                PartitionKey = "{Query.id}")] CosmosChatHistory chatHistory,
             ILogger log)
         {
-            PromptInput promptInput = new PromptInput();
+            PromptFlowInput promptInput = new PromptFlowInput();
 
             // Get content from http request body, then deseriaize it into "Inputs" object
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
@@ -42,10 +40,10 @@ namespace Chatbot.Function
                 Chat_History _chatHistory = new Chat_History();
                 promptInput.chat_history = new Chat_History[] { _chatHistory };
 
-                ChatOutput replyPVA = await ChatUtilities.CallChatAsync(promptInput, log);
+                PromptFlowOutput replyPVA = await ChatUtilities.CallChatAsync(promptInput, log);
 
-                // Save item to cosmos DB
-                ChatHistory newChatHistory = new ChatHistory();
+                // Save item to cosmos DB, constructing the object as follows:
+                CosmosChatHistory newChatHistory = new CosmosChatHistory();
                 newChatHistory.conversationId = conversationId;
                 newChatHistory.id = conversationId;
 
@@ -69,7 +67,7 @@ namespace Chatbot.Function
                 promptInput.chat_history = chatHistory.chat_history;
                 promptInput.chat_input = inputs.question;
 
-                ChatOutput replyPVA = await ChatUtilities.CallChatAsync(promptInput, log);
+                PromptFlowOutput replyPVA = await ChatUtilities.CallChatAsync(promptInput, log);
 
                 await ChatUtilities.UpdateItem(promptInput, replyPVA.answer, conversationId, log);
                 return new OkObjectResult(replyPVA);
