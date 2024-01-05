@@ -23,7 +23,7 @@ Architecture:
 6. Azure AI Content Safety
 
 ## Step 1: Data Preparation (Optional)
-Firstly, we will generate dummy data using Bing Chat. Navigate to **Dummy Data Preparation** folder for the prompts and get sample data.
+Firstly, we will generate dummy data using Bing Chat. Navigate to [**Dummy Data Preparation**](./Dummy%20Data%20Preparation/README.md) folder for the prompts and get sample data.
 
 Store the documents in a container under Azure storage.
 
@@ -136,7 +136,7 @@ Once done, take note of the inference url, deployment name and the key.
 ![Image](Assets/deploy-complete.png)
 
 ## Step 4: Deploy Azure Functions
-This step is to bootstrap the endpoint above, and include additional capability on storing and retriving conversation history based on conversation history. Refer to [Azure Functions](./Azure%20Functions/README.md) for further details.
+This step is to bootstrap the endpoint above, and include additional capability on storing and retriving conversation history based on conversation history. Refer to [**Azure Functions**](./Azure%20Functions/README.md) for further details.
 
 ## Step 5: Work in progress
 You can now create a chatbot based on copilot studio / Azure Bot Services and connect with the endpoint from Azure Functions.
