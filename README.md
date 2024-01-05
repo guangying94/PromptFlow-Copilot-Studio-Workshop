@@ -4,6 +4,9 @@ This repository aims to provide step by step to guide developer to develop end t
 ## What we will build
 This sample is based on popular generative AI application pattern, retrival augmented generation (RAG), while providing the flexibility to refine the system prompt for more relevant response. In this sample, we will build a chatbot that answer questions based on standard of procedure document for corporate security in ficticious company called Contoso. User can talk to this chatbot via Microsoft Teams or M365 copilot in future.
 
+Architecture:
+![Image](Assets/architecture.png)
+
 ## Pre-requisite
 1. Azure subscription
 2. Access to Azure Open AI / Open AI
