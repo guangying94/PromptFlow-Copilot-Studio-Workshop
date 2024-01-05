@@ -53,7 +53,7 @@ namespace Chatbot.Function
                 Inputs _inputs = new Inputs();
                 _inputs.question = inputs.question;
                 Outputs _outputs = new Outputs();
-                _outputs.chat_output = replyPVA.chat_output;
+                _outputs.chat_output = replyPVA.answer;
                 chat_History[0].inputs = _inputs;
                 chat_History[0].outputs = _outputs;
                 newChatHistory.chat_history = chat_History;
@@ -71,7 +71,7 @@ namespace Chatbot.Function
 
                 ChatOutput replyPVA = await ChatUtilities.CallChatAsync(promptInput, log);
 
-                await ChatUtilities.UpdateItem(promptInput, replyPVA.chat_output, conversationId, log);
+                await ChatUtilities.UpdateItem(promptInput, replyPVA.answer, conversationId, log);
                 return new OkObjectResult(replyPVA);
             }
         }

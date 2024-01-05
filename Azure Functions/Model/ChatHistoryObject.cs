@@ -32,6 +32,6 @@ namespace Chatbot.Function
 
     public class ChatOutput
     {
-        public string chat_output { get; set; }
+        public string answer { get; set; }
     }
 }
