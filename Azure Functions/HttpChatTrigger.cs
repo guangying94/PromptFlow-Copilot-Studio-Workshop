@@ -36,7 +36,7 @@ namespace Chatbot.Function
             {
                 // new conversation
                 log.LogInformation($"No chat history for {conversationId}");
-                promptInput.chat_input = inputs.question;
+                promptInput.question = inputs.question;
                 Chat_History _chatHistory = new Chat_History();
                 promptInput.chat_history = new Chat_History[] { _chatHistory };
 
@@ -65,7 +65,7 @@ namespace Chatbot.Function
                 log.LogInformation(JsonConvert.SerializeObject(chatHistory));
 
                 promptInput.chat_history = chatHistory.chat_history;
-                promptInput.chat_input = inputs.question;
+                promptInput.question = inputs.question;
 
                 PromptFlowOutput replyPVA = await ChatUtilities.CallChatAsync(promptInput, log);
 

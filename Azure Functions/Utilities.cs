@@ -24,6 +24,8 @@ namespace Chatbot.Function
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Environment.GetEnvironmentVariable("CHAT_KEY"));
                 client.DefaultRequestHeaders.Add("azureml-model-deployment", Environment.GetEnvironmentVariable("CHAT_DEPLOYMENT"));
                 var response = await client.PostAsync(url, new StringContent(JsonConvert.SerializeObject(input), System.Text.Encoding.UTF8, "application/json"));
+                // var responseString = await response.Content.ReadAsStringAsync();
+                // log.LogInformation($"Received response: {responseString}");
                 PromptFlowOutput chatOutput = JsonConvert.DeserializeObject<PromptFlowOutput>(await response.Content.ReadAsStringAsync());
                 return chatOutput;
             }
@@ -60,7 +62,7 @@ namespace Chatbot.Function
             {
                 Chat_History newEntry = new Chat_History();
                 newEntry.inputs = new Inputs();
-                newEntry.inputs.question = promptInput.chat_input;
+                newEntry.inputs.question = promptInput.question;
                 newEntry.outputs = new Outputs();
                 newEntry.outputs.chat_output = response;
 
